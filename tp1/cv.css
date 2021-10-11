@@ -5,19 +5,38 @@ body{
     margin: 0 auto;
     font-size: 16px;
     padding: 10px;
+    background-image:url(background.jpg);
+    
 }
+
 table{
-    background-color: white;
-    border: 1px solid black;
+    background-color:white;
+    border: 2px solid rgb(43, 153, 226);
 	text-align: left;
+    border-radius: 15px; 
+    padding: 5px;
 }
 tr{
-    border: 1px solid black;  
+    border: 1px solid black; 
+    border-radius: 25px; 
+   
 }
 td{
     border: 1px solid black;
     text-align: left;
+    margin-right: 30px;
+    padding-left: 20px; 
+    border-radius: 25px;
 }
-h1{
-    text-align: center;
+th{
+    padding-left: 10px; 
+    border-radius: 25px;
+}
+tr:nth-child(even)
+{background-color: rgb(215, 211, 233);}
+tr:hover 
+{background-color: #D6EEEE;}
+h1:hover 
+{
+    background-color: rgb(247, 199, 232);
 }
