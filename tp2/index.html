@@ -9,16 +9,19 @@
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
-
+        <link rel="stylesheet" type="text/css" href="formulaire.css"/>
         <style>
           body{
               background-color: #e9ebee;              
               font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-              font-size: 16px;
+              font-size: 20px;
               margin: 0 auto;
               max-width: 800px;              
           }
         </style>
+		<script type="text/javascript" src="formulaire.js">
+	
+		</script>
         
         <!-- Code à dé-commenter si besoin de fichier CSS ou JS -->
         <!--<link rel="stylesheet" href="style.css">-->
@@ -27,7 +30,41 @@
     <body>        
         <h1>tp2</h1>
         <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
-        <img src="../galilee.png" alt="Logo Galilee"/>
+        
+	
+	
+	<h1> Saisis d'une fiche "personne"</h1>
+	<form id="formu">
+		<table>
+	<tr>
+		<td><label for="nom">Nom</label></td>
+		<td><input type="text" id="nom" name="nom"/></td><br>
+	</tr>
+	<tr>
+	    <td><label for="prénom">Prénom</label></td>
+		<td><input type="text" id="prénom" name="prénom"/></td><br>
+	</tr>
+	<tr>
+		<td><label for="date">Date de naissance </label></td>
+		<td><input placeholder="JJ/MM/AAA" type="text" id="date" name="date"/></td>
+	</tr>
+	<tr>
+		<td><label for="adresse">Adresse</label></td>
+		<td><input type="adresse" id="adresse" name="adresse"></td>
+	</tr>
+	<tr>
+		<td><label for="mail">Mail</label></td>
+		<td><input type="mail" id="mail" name="mail"></td>
+	</tr>
+	<tr>
+		<td> </td>
+		<th><input type="button" id="button" name="button"  value="valider" onclick="validation()"></th>
+	</tr>
+		</table>
+	</form>
+	<div id=error>Le nom doit contenir au moins 5 caractères</div>
+	<div id=resultat> Bienvenue</div>
+	</body>
+	</html>
     </body>
 </html>
