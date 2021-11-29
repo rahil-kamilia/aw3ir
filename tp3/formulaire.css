@@ -1,0 +1,82 @@
+form{
+background-color:rgb(231, 210, 226);
+border-radius: 40px;
+
+}
+#error {
+    background-color: pink  ;
+    padding: 5px;
+    border: 1px solid black;
+    display: none;
+}
+
+#resultat{
+    background: green;
+    padding: 5px;
+    color:white;
+    display: none;
+} 
+#button{
+    background-color:ghostwhite;
+    border-radius: 30px;
+    padding: 10px;}
+    
+    #button:hover 
+{background-color: #d7dbdb;}
+
+
+td{
+    
+    text-align: center;
+    margin-right: 30px;
+    padding-left: 20px; 
+    border-radius: 25px;
+}
+#nom {
+    background-color: rgb(205, 222, 226);
+    border-radius: 5px;
+    border-color: burlywood;
+    line-height: 10px;
+}
+#prenom {
+    background-color: rgb(205, 222, 226);
+    border-radius: 5px;
+    border-color: burlywood;
+    line-height: 10px;
+}
+#date {
+    background-color: rgb(205, 222, 226);
+    border-radius: 5px;
+    border-color: burlywood;
+    line-height: 10px;
+}
+#adresse{
+    background-color: rgb(205, 222, 226);
+    border-radius: 5px;
+    border-color: burlywood;
+    line-height: 10px;
+}
+#email {
+    background-color: rgb(205, 222, 226);
+    border-radius: 5px;
+    border-color: burlywood;
+    line-height: 10px;
+}
+h1{
+    text-align: center;
+}
+
+.invalide{
+margin-top: 5px;
+width: 150PX;
+font-size: 18px;
+color: red;
+background: rgb(250, 220, 225);
+text-align: center;
+padding: 5px 8px;
+border-radius: 3px;
+border: 1px solid;
+display: none;
+}
+
+
