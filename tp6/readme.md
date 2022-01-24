@@ -144,18 +144,18 @@ Cela va vous créer donc le projet avec cette arborescence :
 ```
 tp6/
 ├── meteo-angular/
-│   ├── .angular-cli.json // configuration d'angular-cli pour le projet
+│   ├── .angular.json // configuration d'angular pour le projet
 │   ├── .editorconfig
 │   ├── .gitignore      // liste des fichiers ignorés par GIT
-│   ├── karma.conf.js   // Test de l'applcation
-│   ├── package.json    // liste les modules à charger avec NPM
+│   ├── karma.conf.js   // Tests unitaires de l'applcation
+│   ├── package.json    // liste les dépendences à charger avec NPM
 │   ├── protractor.conf.js
 │   ├── README.md       // Documentation du projet (c'est ce format de fichier qui utilisé pour l'intitulé de vos TP AW)
 │   ├── tsconfig.json   // configuration du compilateur TypeScript vers Javascript
 │   ├── tslint.json     // configuration de l'assistant pour respecter les conventions de codage
 │   │
 │   └── e2e/
-│   └── node_modules/
+│   └── node_modules/   // répertoire ou toutes les dépendances sous téléchargées (⚠à ne surtout pas pousser sur git⚠)
 │   └── src/
 │   │    └── app/                   // Le code à modifier pour votre projet
 │            ├── app.component.css
@@ -341,7 +341,7 @@ Créer un ficher ```meteoItem.ts```  dans le répertoire src/app/
 
 ```ts
 // src\app\meteoItem.ts
-export class MeteoItem {
+export interface MeteoItem {
     id: number;
     name: string;
     weather: any
@@ -373,12 +373,14 @@ La validation de du texte saisie et les messages d'erreur du formulaire sont gé
     {{city.name.length}} caractères
   </small>
 
-  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-
-    <div *ngIf="name.errors.required">
+  <div
+    *ngIf="name.invalid && (name.dirty || name.touched) && name.errors"
+    class="alert alert-danger"
+  >
+    <div *ngIf="name.errors['required']">
       La saisie de la ville est obligatoire
     </div>
-    <div *ngIf="name.errors.minlength">
+    <div *ngIf="name.errors['minlength']">
       Doit contenit au moins 3 caratères.
     </div>
   </div>
@@ -405,7 +407,7 @@ export class MeteoComponent implements OnInit {
 
   city: MeteoItem = {
     name: '',
-    id: null,
+    id: 0,
     weather: null
   };
 
@@ -424,8 +426,11 @@ export class MeteoComponent implements OnInit {
   onSubmit() {
 
     if (this.isCityExist(this.city.name) === false) {
-      let currentCity = new MeteoItem();
-      currentCity.name = this.city.name;
+      const currentCity: MeteoItem = {
+        name: this.city.name,
+        id: Date.now(), // pour avoir un id unique, on récupère le timestamp de l'heure courante
+        weather: null,
+      };
       this.cityList.push(currentCity);
 
       this.saveCityList();
@@ -611,9 +616,6 @@ Copier ce code et penser à mettre ```VOTRE_CLE_OPENWEATHERMAP``` à jour.
 
 ```ts
 import { Injectable } from '@angular/core';
-import { MeteoItem } from '../meteoItem';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 
 @Injectable({ providedIn: 'root' })
 export class MeteoService {
@@ -623,8 +625,6 @@ export class MeteoService {
 
   getMeteo(name: string): Promise<any> {
     console.log('from service', name);
-
-    let m = new MeteoItem();
 
     return fetch('https://api.openweathermap.org/data/2.5/weather/?q=' + name + '&units=metric&lang=fr&appid=VOTRE_CLE_OPENWEATHERMAP')
       .then(function (response) {
@@ -638,13 +638,9 @@ export class MeteoService {
         if (json.cod === 200) {
           return Promise.resolve(json);
         } else {
-          m.weather = json;
+          console.error('Météo introuvable pour ' + name + ' (' + json.message + ')');
 
-          console.error('Météo introuvable pour ' + name
-            + ' (' + json.message + ')');
-
-          return Promise.reject('Météo introuvable pour ' + name
-          + ' (' + json.message + ')');
+          return Promise.reject('Météo introuvable pour ' + name + ' (' + json.message + ')');
         }
 
       });
@@ -695,11 +691,17 @@ export class MeteoDetailComponent implements OnInit {
   }
 
   getMeteo(): void {
-    const name = this.route.snapshot.paramMap.get('name');
+    const name = this.route.snapshot.paramMap.get('name'); 
+    // pour lire la paramètre 'name' dans l'URL de la page  comme définit dans le router avec
+    // path: 'meteo/:name'
+
     console.log('getmeteo',name);
-    this.meteoService.getMeteo(name)
+    if(name)
+    {
+      this.meteoService.getMeteo(name)
       .then(meteo => this.meteo = meteo)
       .catch(fail => this.meteo = fail);
+    }
   }
 
 }
@@ -787,7 +789,12 @@ ng build --base-href /aw3ir/tp6/meteo-angular/build/ --output-path build
 Cela va créer votre projet compilé dans le répertoire ```tp6/meteo-angular/build/```. 
 Ce répertoire est prêt à étre mis sur un serveur web (github pages par exemple).
 
-💡 **C'est donc le contenu de ce dossier "dist" qu'il faut mettre sur votre page Github**
+💡 **C'est donc le contenu de ce dossier "build" qu'il faudra aussi pousser mettre sur votre dépôt Github**
+
+L'URL à partager avec le professeur sera : 
+```
+https://[votre_pseudo_github]].github.io/aw3ir/tp6/meteo-angular/build/index.html
+```
 
 ```ng build``` va optimiser le code et :
 * compiler le code TypeScript en Javascript
