@@ -10,7 +10,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
 
-        <style>
+        <!-- <style>
           body{
               background-color: #e9ebee;              
               font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
@@ -18,11 +18,12 @@
               margin: 0 auto;
               max-width: 800px;              
           }
-        </style>
+        </style> -->
         
          <!-- Code à dé-commenter si besoin de fichier CSS ou JS -->
-        <!--<link rel="stylesheet" href="style.css">-->
-        <!--<script src="main.js"></script>-->
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <script type='text/javascript' src="./js/main.js"></script>
+        <script src="./js/Libs/vue.js"></script>
     </head>
     <body>        
         <h1>TP5</h1>
@@ -31,7 +32,7 @@
        
 
 
-         
+        <div id='weatherApp'>
           
            
             <form v-on:submit="addCity">
@@ -74,7 +75,7 @@
                     <div class="card-header">
                         {{cityWeather.name}} 
                     </div>
-                    <img class="card-img-top" v-bind:src="'https://maps.googleapis.com/maps/api/staticmap?markers='+cityWeather.coord.lat+','+cityWeather.coord.lon+'&zoom=5&size=400x300&scale=2&key=5bc3768502e1a6787d8dfe82338621bf'" alt="Card image cap">
+                    <img class="card-img-top" v-bind:src="'https://maps.googleapis.com/maps/api/staticmap?markers='+cityWeather.coord.lat+','+cityWeather.coord.lon+'&zoom=5&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg'" alt="Card image cap">
                     
                     <div class="card-body">
                         <h5 class="card-title">
@@ -107,11 +108,13 @@
                 </div>
             </div>
         </div>
-        
+    </div>
 
        
         
     </body>
 </html>
+
+<!-- </html>
     </body>
-</html>
+</html> -->
